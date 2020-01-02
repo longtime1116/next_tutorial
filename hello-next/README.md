@@ -1,5 +1,6 @@
 # Getting Started
-* 事前に npm をアップデートしておいた
+
+- 事前に npm をアップデートしておいた
 
 ```bash
 $npm install -g npm
@@ -7,3 +8,9 @@ $npm install -g npm
 /usr/local/bin/npx -> /usr/local/lib/node_modules/npm/bin/npx-cli.js
 + npm@6.13.4
 ```
+
+## Setup
+
+- この時点で、VSCode に切り替えた
+
+# Navigate Between Pages
