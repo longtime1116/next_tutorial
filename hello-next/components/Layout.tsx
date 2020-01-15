@@ -6,7 +6,11 @@ const layoutStyle = {
   border: "1px solid #DDD"
 };
 
-const Layout = props => (
+type Props = {
+  children: any;
+};
+
+const Layout: React.FunctionComponent<Props> = props => (
   <div style={layoutStyle}>
     <Header />
     {props.children}
