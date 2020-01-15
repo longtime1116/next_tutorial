@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 
-export default function About() {
+const About: React.FunctionComponent = () => {
   return (
     <div>
       <Layout>
@@ -8,4 +8,6 @@ export default function About() {
       </Layout>
     </div>
   );
-}
+};
+
+export default About;

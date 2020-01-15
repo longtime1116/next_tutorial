@@ -1,8 +1,9 @@
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 import Layout from "../../components/Layout";
+import { NextPage, NextPageContext } from "next";
 
-const Post = () => {
-  const router = useRouter();
+const Post: React.FunctionComponent = () => {
+  const router: NextRouter = useRouter();
   return (
     <Layout>
       <h1>{router.query.id}</h1>
