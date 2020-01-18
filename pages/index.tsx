@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import { NextPage } from "next";
 import fetch from "isomorphic-unfetch";
+import useSWR from "swr";
 
 type Show = {
   id: number;
@@ -32,46 +33,76 @@ const PostLink: React.FunctionComponent<{ show: Show }> = ({ show }) => (
   </li>
 );
 
-const Index: NextPage<{ shows: Show[] }> = ({ shows }) => (
-  <div>
-    <Layout>
-      <h1>Batman TV Shows</h1>
-      <ul>
-        {shows.map(show => (
-          <PostLink key={show.id} show={show} />
-        ))}
-      </ul>
-      {
-        // styling component:
-        //  babel plugin として機能するので、ビルドプロセス時に適用される
-      }
-      <style jsx>{`
-        h1,
-        a {
-          font-family: "Arial";
-        }
+function fetcher(url: string) {
+  return fetch(url).then(r => r.json());
+}
 
-        ul {
-          padding: 0;
-        }
+const Index: NextPage<{ shows: Show[] }> = ({ shows }) => {
+  const { data, error } = useSWR("/api/quote?author=Hogetaro", fetcher);
+  const author = data?.author;
+  let quote = data?.quote;
 
-        li {
-          list-style: none;
-          margin: 5px 0;
+  if (!data) {
+    quote = "Loading...";
+  }
+  if (error) {
+    console.log(error);
+    quote = "Failed to fetch the quote";
+  }
+  return (
+    <div>
+      <Layout>
+        <h1>Batman TV Shows</h1>
+        <ul>
+          {shows.map(show => (
+            <PostLink key={show.id} show={show} />
+          ))}
+        </ul>
+        {
+          // styling component:
+          //  babel plugin として機能するので、ビルドプロセス時に適用される
         }
+        <div className="quote">{quote}</div>
+        {author && <span className="author">- {author}</span>}
+        <style jsx>{`
+          h1,
+          a {
+            font-family: "Arial";
+          }
 
-        a {
-          text-decoration: none;
-          color: blue;
-        }
+          ul {
+            padding: 0;
+          }
 
-        a:hover {
-          opacity: 0.6;
-        }
-      `}</style>
-    </Layout>
-  </div>
-);
+          li {
+            list-style: none;
+            margin: 5px 0;
+          }
+
+          a {
+            text-decoration: none;
+            color: blue;
+          }
+
+          a:hover {
+            opacity: 0.6;
+          }
+          .quote {
+            font-family: cursive;
+            color: #e243de;
+            font-size: 24px;
+            padding-bottom: 10px;
+          }
+          .author {
+            font-family: sans-serif;
+            color: #559834;
+            font-size: 20px;
+          }
+        `}</style>
+      </Layout>
+    </div>
+  );
+};
 
 Index.getInitialProps = async () => {
   const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");

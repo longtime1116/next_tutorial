@@ -27,6 +27,8 @@
 - React
 
   - [React Hook](https://reactjs.org/docs/hooks-intro.html)
+  - [SWR](https://github.com/zeit/swr)
+    - SWR is a React Hooks library for remote data fetching.
 
 * TypeScript
   - [型入門](https://qiita.com/uhyo/items/e2fdef2d3236b9bfe74a#%E9%85%8D%E5%88%97%E5%9E%8B)
