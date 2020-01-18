@@ -8,17 +8,37 @@ type Show = {
   name: string;
 };
 
+const PostLink: React.FunctionComponent<{ show: Show }> = ({ show }) => (
+  <li key={show.id}>
+    <Link href="/p/[id]" as={`/p/${show.id}`}>
+      <a>{show.name}</a>
+    </Link>
+    <style jsx>{`
+      li {
+        list-style: none;
+        margin: 5px 0;
+      }
+
+      a {
+        font-family: "Arial";
+        text-decoration: none;
+        color: blue;
+      }
+
+      a:hover {
+        opacity: 0.6;
+      }
+    `}</style>
+  </li>
+);
+
 const Index: NextPage<{ shows: Show[] }> = ({ shows }) => (
   <div>
     <Layout>
       <h1>Batman TV Shows</h1>
       <ul>
         {shows.map(show => (
-          <li key={show.id}>
-            <Link href="/p/[id]" as={`/p/${show.id}`}>
-              <a>{show.name}</a>
-            </Link>
-          </li>
+          <PostLink key={show.id} show={show} />
         ))}
       </ul>
       {
