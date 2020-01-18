@@ -15,6 +15,8 @@
 
   - [useRouter](https://nextjs.org/docs/api-reference/next/router#userouter)
   - [getInitialProps](https://nextjs.org/docs/api-reference/data-fetching/getInitialProps)
+  - styling
+    - [styled-jsx](https://github.com/zeit/styled-jsx)
 
 - Next with TypeScript
 
